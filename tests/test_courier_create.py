@@ -34,8 +34,8 @@ class TestCourierCreate:
     def test_create_courier_lack_data_return_bad_request_error(self, login, password):
         courier = Courier()
         payload = courier.create_new_courier_payload(login=login, password=password)
+
         response = courier.create_new_courier(payload)
 
         assert (response.status_code == 400 and
                 response.json()['message'] == 'Недостаточно данных для создания учетной записи')
-        
