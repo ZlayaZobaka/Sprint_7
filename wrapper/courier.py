@@ -5,7 +5,7 @@ class Courier(Base):
     def __init__(self):
         self.URL = f'{data.BASE_URL}/courier'
 
-    def create_new_courier_payload(self, login=True, password=True):
+    def create_new_courier_payload1(self, login=True, password=True):
         payload = {
             "firstName": self.generate_random_string(10)
         }

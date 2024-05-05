@@ -5,14 +5,12 @@ from wrapper.courier_login import CourierLogin
 
 class TestCourierLogin:
     # курьер может авторизоваться, успешный запрос возвращает id
-    def test_login_courier_correct_data_return_id(self):
+    def test_login_courier_correct_data_return_id(self, new_courier_payload, login_courier_payload):
         courier = Courier()
-        payload = courier.create_new_courier_payload()
-        courier.create_new_courier(payload)
-        courier_login = CourierLogin()
-        login_payload = courier_login.login_courier_payload(payload)
+        courier.create_new_courier(new_courier_payload)
 
-        response = courier_login.login_courier(login_payload)
+        courier_login = CourierLogin()
+        response = courier_login.login_courier(login_courier_payload)
 
         assert (response.status_code == 200 and
                 'id' in response.json())

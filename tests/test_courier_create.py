@@ -4,21 +4,19 @@ from wrapper.courier import Courier
 
 class TestCourierCreate:
     # успешный запрос возвращает {"ok":true}
-    def test_create_courier_correct_data_return_ok(self):
+    def test_create_courier_correct_data_return_ok(self, new_courier_payload):
         courier = Courier()
-        payload = courier.create_new_courier_payload()
 
-        response = courier.create_new_courier(payload)
+        response = courier.create_new_courier(new_courier_payload)
 
         assert response.status_code == 201 and response.text == '{"ok":true}'
 
     # если создать пользователя с логином, который уже есть, возвращается ошибка Сonflict
-    def test_create_courier_same_login_return_conflict_error(self):
+    def test_create_courier_same_login_return_conflict_error(self, new_courier_payload):
         courier = Courier()
-        payload = courier.create_new_courier_payload()
 
-        courier.create_new_courier(payload)
-        new_response = courier.create_new_courier(payload)
+        courier.create_new_courier(new_courier_payload)
+        new_response = courier.create_new_courier(new_courier_payload)
 
         assert (new_response.status_code == 409 and
                 new_response.json()['message'] == 'Этот логин уже используется. Попробуйте другой.')
