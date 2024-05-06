@@ -1,3 +1,4 @@
+import allure
 import pytest
 import helpers
 import copy
@@ -9,6 +10,7 @@ from wrapper.orders_track import OrdersTrack
 from faker import Faker
 
 
+@allure.step(f'Создаем запрос на создание курьера')
 @pytest.fixture(scope='function')
 def create_courier_payload():
     payload = {
@@ -19,12 +21,14 @@ def create_courier_payload():
     return payload
 
 
+@allure.step(f'Создаем запрос на создание курьера без обязательных полей')
 @pytest.fixture(scope='function')
 def create_bad_courier(request, create_courier_payload):
     create_courier_payload[request.param] = ''
     return create_courier_payload
 
 
+@allure.step(f'Создаем запрос на авторизацию курьера')
 @pytest.fixture(scope='function')
 def login_courier_payload(create_courier_payload):
     payload = copy.copy(create_courier_payload)
@@ -32,6 +36,7 @@ def login_courier_payload(create_courier_payload):
     return payload
 
 
+@allure.step(f'Создаем запрос на авторизацию курьера с некорректными данными')
 @pytest.fixture(scope='function')
 def login_wrong_data_courier(request, login_courier_payload):
     payload = copy.copy(login_courier_payload)
@@ -39,6 +44,7 @@ def login_wrong_data_courier(request, login_courier_payload):
     return payload
 
 
+@allure.step(f'Создаем запрос на авторизацию курьера без обязательных полей')
 @pytest.fixture(scope='function')
 def login_empty_data_courier(request, login_courier_payload):
     payload = copy.copy(login_courier_payload)
@@ -46,6 +52,7 @@ def login_empty_data_courier(request, login_courier_payload):
     return payload
 
 
+@allure.step(f'Удаляем курьера')
 @pytest.fixture(scope='function')
 def delete_courier(login_courier_payload):
     def _delete():
@@ -56,6 +63,7 @@ def delete_courier(login_courier_payload):
     return _delete
 
 
+@allure.step(f'Создаем запрос на создание заказа')
 @pytest.fixture(scope='function')
 def create_order_payload(request):
     fake = Faker()
@@ -73,6 +81,7 @@ def create_order_payload(request):
     return payload
 
 
+@allure.step(f'Создаем запрос на принятие заказа')
 @pytest.fixture(scope='function')
 def create_order_accept_payload(create_courier_payload, login_courier_payload, create_order_payload):
     Courier().create_new_courier(create_courier_payload)

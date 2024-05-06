@@ -1,3 +1,4 @@
+import allure
 import requests
 from data import Url
 import json
@@ -7,7 +8,7 @@ class Orders:
     def __init__(self):
         self.URL = Url.BASE_URL + Url.ORDER_ENDPOINT
 
-    # отправляем запрос на создание заказа и сохраняем ответ в переменную response
+    @allure.step(f'Отправляем запрос на создание заказа')
     def create_new_order(self, payload):
         response = requests.post(
             url=self.URL,
@@ -16,7 +17,7 @@ class Orders:
 
         return response
 
-    # отправляем запрос на получение списка заказов и сохраняем ответ в переменную response
+    @allure.step(f'Отправляем запрос на получение списка заказов')
     def get_orders(self, courier_id="", nearest_station="", limit="", page=""):
         url = self.URL
         if courier_id or nearest_station or limit or page:

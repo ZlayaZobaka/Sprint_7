@@ -1,13 +1,13 @@
 import allure
 import requests
 import pytest
-
 import helpers
 from wrapper.orders_accept import OrdersAccept
 
 
 class TestOrdersAccept:
-    # успешный запрос возвращает {"ok":true}
+    @allure.title('Тест принятия заказа')
+    @allure.description('Успешный запрос принятия заказа возвращает {"ok":true}')
     def test_accept_order_correct_data_return_ok(
             self, create_order_accept_payload, delete_courier):
         response = OrdersAccept().accept_orders(*create_order_accept_payload)
@@ -17,7 +17,8 @@ class TestOrdersAccept:
 
         delete_courier()
 
-    # если передать неверный id курьера/заказа, запрос вернёт ошибку Not Found
+    @allure.title('Тест принятия заказа с неверным id курьера/заказа')
+    @allure.description('Если передать неверный id курьера/заказа, запрос вернёт ошибку Not Found')
     @pytest.mark.parametrize("parameter_number", [x for x in range(0, 2)])
     def test_accept_order_wrong_id_return_not_found_error(
             self, parameter_number, create_order_accept_payload, delete_courier):
@@ -29,7 +30,8 @@ class TestOrdersAccept:
 
         delete_courier()
 
-    # если не передать id курьера, запрос вернёт ошибку Bad Request
+    @allure.title('Тест принятия заказа без указания id курьера')
+    @allure.description('Если не передать id курьера, запрос вернёт ошибку Bad Request')
     def test_accept_order_wo_courier_id_return_bad_request_error(
             self, create_order_accept_payload, delete_courier):
         create_order_accept_payload[1] = ""
@@ -41,7 +43,8 @@ class TestOrdersAccept:
 
         delete_courier()
 
-    # если не передать id заказа, запрос вернёт ошибку Not Found
+    @allure.title('Тест принятия заказа без указания id заказа')
+    @allure.description('Если не передать id заказа, запрос вернёт ошибку Not Found')
     def test_accept_order_wo_order_id_return_bad_request_error(
             self, create_order_accept_payload, delete_courier):
         create_order_accept_payload[0] = ""
