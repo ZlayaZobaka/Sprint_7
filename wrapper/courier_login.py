@@ -1,21 +1,9 @@
-from wrapper.base import Base
 import requests
-import data
+from data import Url
 
-class CourierLogin(Base):
+class CourierLogin():
     def __init__(self):
-        self.URL = f'{data.BASE_URL}/courier/login'
-
-    def login_courier_payload(self, payload, login=True, password=True):
-        del payload['firstName']
-
-        if not login:
-            del payload['login']
-
-        if not password:
-            del payload['password']
-
-        return payload
+        self.URL = Url.BASE_URL + Url.COURIER_LOGIN_ENDPOINT
 
     # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
     def login_courier(self, payload):
