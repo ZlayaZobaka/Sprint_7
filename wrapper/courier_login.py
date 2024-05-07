@@ -2,7 +2,8 @@ import allure
 import requests
 from data import Url
 
-class CourierLogin():
+
+class CourierLogin:
     def __init__(self):
         self.URL = Url.BASE_URL + Url.COURIER_LOGIN_ENDPOINT
 

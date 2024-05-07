@@ -6,6 +6,7 @@ class Url:
     ORDER_TRACK_ENDPOINT = '/orders/track'
     ORDER_ACCEPT_ENDPOINT = '/orders/accept'
 
+
 class MagicConstants:
     MIN_ID = 1000000
     MAX_ID = 9000000
